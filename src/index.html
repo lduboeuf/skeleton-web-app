@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html manifest="manifest.appcache">
+  <head>
+    <meta charset="utf-8">
+    <title>App name</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- build:js scripts/vendors.js -->
+    <!-- here third party libraries-->
+    <script src="scripts/vendors/doT.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/scripts.js -->
+    <!-- here local libs -->
+    <script src="scripts/spapp.js"></script>
+    <script src="scripts/app-utils.js"></script>
+    <!-- @spapp_generator scripts -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/app.css">
+    <!-- endbuild -->
+  </head>
+<body>
+  <!--[if lt IE 10]> <p class="browserupgrade"><strong>Ohlala, so sorry!</strong>, developping apps for old browser is so painfull and time consuming that i choosed not to support them ... Please <a href="http://browsehappy.com/">upgrade your browser</a> .</p> <![endif]-->
+  <header>
+    <div class="brand">
+      <a href="#home">App name</a>
+      <span>blabla</span>
+    </div>
+
+    <ul class="topnav" id="menu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li class="icon">
+       <a href="javascript:void(0);">&#9776;</a>
+    </li>
+   </ul>
+ </header>
+  <section id="home" default>
+    <!-- displayed first-->
+  </section>
+  <section id="about" src="templates/about.html"></section>
+  <!-- @spapp_generator sections -->
+  <div class="alert alert-info">
+    <span onclick="this.parentElement.style.display='none'" class="alert-closebtn">&times;</span>
+    <p class="alert-msg"></p>
+  </div>
+  <script>
+    //@see app-utils.js
+    app.start();
+  </script>
+</body>
+</html>
