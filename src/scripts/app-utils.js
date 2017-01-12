@@ -37,15 +37,6 @@ app.start = function(){
 
   $menu_icon.onclick = toggleMenu;
 
-  //remotestorage
-  remoteStorage.access.claim('teams', 'rw');
-  remoteStorage.access.claim('archives', 'rw');
-  remoteStorage.access.claim('config', 'rw');
-
-
-  remoteStorage.displayWidget();
-
-
   //simulate a hash change at startup
   window.dispatchEvent(new CustomEvent('hashchange'));
 
