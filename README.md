@@ -6,6 +6,12 @@
   npm install
 ```
 
+  ##build
+  ```shell
+   grunt build #will output to dist/dev folder
+   grunt build --rev=prod #will output in dist folder
+  ```
+
 
  ##add a template/controller
 
@@ -18,9 +24,3 @@
  ```shell
   grunt test
  ```
-
- ##compressing for publishing
-   ```
-   grunt # will output app in dist/dev folder
-   grunt --rev=prod #will output in dist folder
-   ```
