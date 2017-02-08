@@ -12,14 +12,21 @@
 
     <!-- build:js scripts/scripts.js -->
     <!-- here local libs -->
-    <script src="scripts/spapp.js"></script>
-    <script src="scripts/app-utils.js"></script>
+    <script src="vendors/spapp.js"></script>
+    <script src="app.js"></script>
+    <script src="commons/home.js"></script>
+
 <!-- @spapp_generator scripts -->
+
+
+
+
 
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/app.css">
+<!-- @spapp_generator css -->
     <!-- endbuild -->
   </head>
 <body>
@@ -41,15 +48,11 @@
   <section id="home" default>
     <!-- displayed first-->
   </section>
-  <section id="about" src="templates/about.html"></section>
+  <section id="about" src="commons/about.html"></section>
 <!-- @spapp_generator sections -->
   <div class="alert alert-info">
     <span onclick="this.parentElement.style.display='none'" class="alert-closebtn">&times;</span>
     <p class="alert-msg"></p>
   </div>
-  <script>
-    //@see app-utils.js
-    app.start();
-  </script>
 </body>
 </html>

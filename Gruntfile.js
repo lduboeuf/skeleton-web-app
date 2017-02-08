@@ -75,7 +75,7 @@ module.exports = function(grunt) {
     nightwatch: {
       options: {
         "src_folders": [
-          "<%= appConfig.app %>/test/e2e"// Where you are storing your Nightwatch e2e tests
+          "test/e2e"// Where you are storing your Nightwatch e2e tests
         ],
         "output_folder": "/tmp/nightwatch/ttb/reports", // reports (test outcome) output by nightwatch
 

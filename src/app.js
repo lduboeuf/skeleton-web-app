@@ -18,7 +18,7 @@ app.cleanUI = function(evt){
   document.querySelector('.alert').style.display = 'none';
 }
 
-app.start = function(){
+start = function(){
 
   //menu handler
   var $menu = document.getElementById("menu");
@@ -41,3 +41,4 @@ app.start = function(){
   window.dispatchEvent(new CustomEvent('hashchange'));
 
 }
+document.addEventListener("DOMContentLoaded",start);
