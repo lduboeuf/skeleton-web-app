@@ -3,6 +3,8 @@
 
  use `grunt` for app production and spapp generator
 ```shell
+  git clone https://github.com/lduboeuf/skeleton-web-app.git
+  cd skeleton-web-app
   npm install
 ```
 
@@ -16,7 +18,7 @@
  ##add a template/controller
 
  ```shell
-  grunt spapp_generator:new --name=controller_name
+  grunt spapp_generator:new --name=folder/controller_name
 
  ```
 
