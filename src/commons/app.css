@@ -26,9 +26,8 @@ section > div, .alert  {
 
 
 
-body.about           > section#about,
-/*@spapp_generator css*/
-body.home    > section#home { display:block; }
+body.about > section#about,
+body.home  > section#home { display:block; }
 
 /* nav highlightion rules */
 body.about #menu a[href="#about"],
