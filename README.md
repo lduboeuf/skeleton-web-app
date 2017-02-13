@@ -10,8 +10,8 @@
 
   ##build
   ```shell
-   grunt build #will output to dist/dev folder
-   grunt build --rev=prod #will output in dist folder
+   grunt build:dev #will copy all files to dist/dev folder
+   grunt build:prod #will output in dist folder
   ```
 
 
