@@ -9,15 +9,17 @@ module.exports = function(grunt) {
     grunt.log.writeln('use `grunt build:dev` to build to dist/dev folder');
     grunt.log.writeln('use `grunt build:prod` to build to dist folder');
     grunt.log.writeln('use `grunt connect:server:keepalive` to launch a local static server');
-    grunt.log.writeln('use `grunt test` to launch tests ( nightwatch)');
-    grunt.log.writeln('use `grunt spapp_generator:new --name=xxx to generate controller skeleton');
+    grunt.log.writeln('use `grunt test` to launch tests on src ( nightwatch)');
+    grunt.log.writeln('use `grunt spapp_generator:new --name=xxx to generate controller/view skeleton and html/css declaration ');
   }
 
    // Configurable paths for the application
   var appConfig = {
     app: 'src',
-    dist: 'dist'
+    dist: 'dist',
+    distDev: 'dist/dev'
   };
+
 
 
 // Define the configuration for all the tasks
@@ -27,30 +29,30 @@ module.exports = function(grunt) {
 
 
     connect: {
-          dev: {
+      src: {
+        options: {
+          port: 8000,
+          base: {
+            path: '<%= appConfig.app %>',
             options: {
-              port: 8000,
-              base: {
-                path: '<%= appConfig.app %>',
-                options: {
-                  index: 'index.html',
-                  maxAge: 300000
-                }
-              }
-            }
-          },
-          prod: {
-            options: {
-              port: 8000,
-              base: {
-                path: '<%= appConfig.dist %>',
-                options: {
-                  index: 'index.html',
-                  maxAge: 300000
-                }
-              }
+              index: 'index.html',
+              maxAge: 300000
             }
           }
+        }
+      },
+      prod: {
+        options: {
+          port: 8000,
+          base: {
+            path: '<%= appConfig.dist %>',
+            options: {
+              index: 'index.html',
+              maxAge: 300000
+            }
+          }
+        }
+      },
     },
     selenium_standalone: {
      options: {
@@ -73,7 +75,7 @@ module.exports = function(grunt) {
         "src_folders": [
           "test/e2e"// Where you are storing your Nightwatch e2e tests
         ],
-        "output_folder": "/tmp/nightwatch/ttb/reports", // reports (test outcome) output by nightwatch
+        "output_folder": ".tmp/nightwatch/ttb/reports", // reports (test outcome) output by nightwatch
 
         "test_settings": {
           "default": {
@@ -81,8 +83,10 @@ module.exports = function(grunt) {
             "selenium_port"  : 4444,
             "selenium_host"  : "localhost",
             "screenshots": {
-              "enabled": true, // if you want to keep screenshots
-              "path" : "/tmp/nightwatch/ttb/screenshots/" // save screenshots here //L.D: does not seems to work
+              "enabled" : true,// if you want to keep screenshots
+              "on_failure" : true,
+              "on_error" : true,
+              "path" : ".tmp/nightwatch/ttb/screenshots" // save screenshots here //L.D: does not seems to work
             },
             "globals": {
               "waitForConditionTimeout": 4000 // sometimes internet is slow so wait.
@@ -113,7 +117,7 @@ module.exports = function(grunt) {
         eqnull: true,
         browser: true
       },
-      all: ['Gruntfile.js', '<%= appConfig.app %>/scripts/*.js']
+      all: ['Gruntfile.js', '<%= appConfig.app %>/**.js']
     },
     spapp_generator: {
       src: '<%= appConfig.app %>/index.html',
@@ -193,6 +197,7 @@ module.exports = function(grunt) {
         }]
       }
     },
+    //manifest generator
     pkg: grunt.file.readJSON('package.json'),
     manifest: {
       generate: {
@@ -222,6 +227,7 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('build', ['build:dev']);
+
   grunt.registerTask('build:prod', [
     'clean:dist',
     'copy:dist',
@@ -232,22 +238,24 @@ module.exports = function(grunt) {
     'cssmin',
     'usemin',
     'htmlmin:dist',
-    'manifest'
-
+    'manifest',
+    'test:prod'
   ]);
   grunt.registerTask('build:dev', [
     'clean:dev',
     'copy:dev'
   ]);
 
-  grunt.registerTask('test', [
-    'selenium_standalone:default:install',
-    'connect:dev',
+  grunt.registerTask('test', function(n) {
+    if (n == null) {
+      n = 'src';
+    }
+    grunt.task.run('selenium_standalone:default:install',
+    'connect:' + n,
     'selenium_standalone:default:start',
     'nightwatch',
-    'selenium_standalone:default:stop'
-   ]);
-
+    'selenium_standalone:default:stop');
+  });
   grunt.registerTask('help', help);
   grunt.registerTask('default', help);
 };

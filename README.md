@@ -11,7 +11,7 @@
   ##build
   ```shell
    grunt build:dev #will copy all files to dist/dev folder
-   grunt build:prod #will output in dist folder
+   grunt build:prod #will output minified, compressed files in dist folder and launch tests
   ```
 
 

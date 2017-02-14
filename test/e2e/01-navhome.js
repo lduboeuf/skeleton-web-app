@@ -9,10 +9,10 @@ module.exports = { // adapted from: https://git.io/vodU0
       .pause(1000)
       .saveScreenshot('/tmp/nightwatch/ttb/screenshots/home.png')
       //test links
-      .click('a[href="#home"]')
-      .assert.visible("#home")
-      .click('a[href="#about"]')
+      .click('#menu a[href="#about"]')
       .assert.visible("#about")
+      .click('#menu a[href="#home"]')
+      .assert.visible("#home")
       .end();
   }
 
