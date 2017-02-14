@@ -6,6 +6,7 @@ body {
   font-size: 14px;
 }
 
+h1 { font-size: 1.10em; }
 h2 { font-size: 1.10em; margin-top: 0;}
 h3 { font-size: 1em; }
 
@@ -46,6 +47,15 @@ body> header {
 
 header h2{
   display: inline-block;
+}
+
+#navigation {
+    background: white;
+    color: #04102A;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-weight: 700;
 }
 
 

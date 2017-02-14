@@ -37,6 +37,20 @@ start = function(){
 
   $menu_icon.onclick = toggleMenu;
 
+  //navigation handling
+  var $navTitle = document.querySelector('#navigation h1');
+  var $navLink = document.querySelector('#navigation a');
+
+  var updateNavigation = function(e){
+    var title = e.detail.title || 'Home';
+    var icon = (e.detail.currentPage==='home') ? '&#8962;': '&#8592;';
+
+    $navTitle.innerHTML = title;
+    $navLink.innerHTML = icon;
+  }
+  //subscribe to page.shown event
+  document.addEventListener('page.shown', updateNavigation);
+
   //simulate a hash change at startup
   window.dispatchEvent(new CustomEvent('hashchange'));
 

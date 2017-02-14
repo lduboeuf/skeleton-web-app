@@ -33,13 +33,14 @@
 
 
 
-  function show(pageName,param) {
+  function show(pageName,param, modal) {
     var $page = document.querySelector("section#" + pageName);
     if( $page.length == 0 ) {
       console.warn("section with id=%s not found!",pageName);
       return;
     }
     var ph = pageHandlers[pageName];
+    var title = null;
     if( ph ) {
       var that = $page.length > 0 ? $page[0] : null;
       var r = ph.call(that , param);
@@ -49,9 +50,14 @@
             pageHandlers[pageName] = r;
         r.call(that, param); // call that rendering function
       }
+      title = ph.title;
     }
     if(currentPageName) { // "close" current page view
-      document.body.classList.remove(currentPageName); // remove old page class {
+      //
+      if (modal!==true){
+        document.body.classList.remove(currentPageName); // remove old page class
+        $currentPage.classList.remove('modal');
+      }
       if($currentPage) {
 
         document.dispatchEvent(new CustomEvent('page.hidden',{'currentPage' : currentPageName }));
@@ -63,14 +69,18 @@
     }
     oldPageName = currentPageName;
     document.body.classList.add(currentPageName = pageName); // set new page class
+    if (modal===true){
+      $page.classList.add('modal');
+    }
+
 
     if($currentPage = $page){
 
-      document.dispatchEvent(new CustomEvent('page.shown', {'currentPage' : currentPageName}));
+      document.dispatchEvent(new CustomEvent('page.shown', {'detail' : {'currentPage' : currentPageName, 'title': title}}));
       //update url location if not
       if ($page.getAttribute('default')!=""){
         var url = '#' + currentPageName;
-        if (param)
+        if (param && typeof(param)!=='object') //don't display object in url
           url += ':' + param;
 
         if (location.hash=="" || location.hash!==url){
@@ -80,7 +90,7 @@
     }
   }
 
-  function app(pageName,param) {
+  function app(pageName,param, modal) {
 
     var $page = document.body.querySelector("section#" + pageName);
     if(!$page){
@@ -88,24 +98,25 @@
     }
     var src = $page.getAttribute("src");
     if( src && !$page.hasChildNodes()) { // it has src and is empty
-      app.get(src, $page, pageName, param);
+      app.get(src, $page, pageName, param,modal);
       // app.get(src, $page, pageName)
       //     .done(function(html){$page.html(html); show(pageName,param); })
       //     .fail(function(){ console.warn("failed to get %s page!",pageName);});
     } else
-      show(pageName,param);
+      show(pageName,param,modal);
   }
 
   app.back = function(params){
     app(oldPageName, params);
   }
   // Registration of page's handler function - scope initializer and controller
-  app.page = function(pageName, handler) {
+  app.page = function(pageName, title, handler) {
+    handler.title = title;
      pageHandlers[pageName] = handler;
     };
 
   // Function to get page's html, shall return jQuery's promise. Can be overriden.
-  app.get = function(src,$page,pageName, param) {
+  app.get = function(src,$page,pageName, param, modal) {
     //return $.get(src, "html");
     var request = new XMLHttpRequest();
     request.open('GET', src, true);
@@ -114,7 +125,7 @@
       if (request.status >= 200 && request.status < 400) {
         // Success!
         $page.innerHTML = request.responseText;
-        show(pageName,param);
+        show(pageName,param, modal);
       } else {
         // We reached our target server, but it returned an error
         console.warn("failed to get %s page!",pageName);
