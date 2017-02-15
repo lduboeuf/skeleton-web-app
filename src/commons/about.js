@@ -1,4 +1,4 @@
-app.page("home","Home", function()
+app.page("home",function()
 {
 
   return function(params) {

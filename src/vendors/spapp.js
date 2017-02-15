@@ -76,7 +76,7 @@
 
     if($currentPage = $page){
 
-      document.dispatchEvent(new CustomEvent('page.shown', {'detail' : {'currentPage' : currentPageName, 'title': title}}));
+      document.dispatchEvent(new CustomEvent('page.shown', {'detail' : {'currentPage' : currentPageName, 'title': $page.getAttribute('title')}}));
       //update url location if not
       if ($page.getAttribute('default')!=""){
         var url = '#' + currentPageName;
@@ -110,8 +110,7 @@
     app(oldPageName, params);
   }
   // Registration of page's handler function - scope initializer and controller
-  app.page = function(pageName, title, handler) {
-    handler.title = title;
+  app.page = function(pageName, handler) {
      pageHandlers[pageName] = handler;
     };
 
