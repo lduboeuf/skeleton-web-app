@@ -26,11 +26,6 @@
   var currentPageName = null;
   var oldPageName = null;
   var $currentPage = null;
-  //equivalent of "is" jquery function
-  var matches = function(el, selector) {
-    return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector);
-  };
-
 
 
   function show(pageName,param, modal) {
@@ -45,7 +40,7 @@
       var that = $page.length > 0 ? $page[0] : null;
       var r = ph.call(that , param);
       if( typeof r == "function" ) { // it returns the function that's used for view rendering
-        if (!matches($page, '[no-ctl-cache]'))
+        if(!$page.hasAttribute('[no-ctl-cache]')) //for non cached section
         //if(!$page.is("[no-ctl-cache]"))
             pageHandlers[pageName] = r;
         r.call(that, param); // call that rendering function
@@ -61,10 +56,7 @@
       if($currentPage) {
 
         document.dispatchEvent(new CustomEvent('page.hidden',{'currentPage' : currentPageName }));
-        //$currentPage.trigger("page.hidden",currentPageName);
-        if($currentPage.getAttribute('src') && matches($currentPage, '[no-ctl-cache]'))
-            $currentPage.innerHTML = null;
-            //$currentPage.empty();
+        if($currentPage.hasAttribute('[no-ctl-cache]')) $currentPage.innerHTML = null;
       }
     }
     oldPageName = currentPageName;
@@ -157,10 +149,8 @@
 
   // Call onhashchange manually for the initialization.
   // setTimeout is used to postpone initialization so application can configure window.app.get = function(src,$page,pageName); for example
-  //don't work everytime
   // window.setTimeout( function() {
   //   window.dispatchEvent(new CustomEvent('hashchange'));
-  //   //$(onhashchange);
   // });
 
 })(this);

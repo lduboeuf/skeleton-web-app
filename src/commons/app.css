@@ -14,18 +14,18 @@ a {
   text-decoration: none;
 }
 
-/* all sections are off by default */
-body > section {
-  margin:1em;
-  display:none;
-}
+
 
 section > div, .alert  {
   width:50%;
   margin:auto;
 }
 
-
+/* all sections are off by default */
+body > section {
+  margin:1em;
+  display:none;
+}
 
 body.about > section#about,
 body.home  > section#home { display:block; }
