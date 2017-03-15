@@ -1,7 +1,7 @@
 {
-  "name": "skelton-web-app",
+  "name": "skeleton-spapp-web-app",
   "version": "0.0.1",
-  "description": "startup code for web app",
+  "description": "startup code for web app using spapp",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,0 +1,25 @@
+<div>
+    <p><strong>Welcome</strong> to blablabla</p>
+    <button>OK</button>
+    <script type="text/javascript">
+        app.page("about",function()
+        {
+
+          $btnOK = document.querySelector('#about button');
+
+          $btnOK.onclick = function(){
+            window.alert('kikou');
+          }
+
+          return function(params) {
+            console.log('here');
+          }
+        });
+
+    </script>
+    <style>
+      #about button{
+        color:red;
+      }
+    </style>
+</div>

@@ -11,8 +11,12 @@ module.exports = { // adapted from: https://git.io/vodU0
       //test links
       .click('#menu a[href="#about"]')
       .assert.visible("#about")
+      .click('#about button')
+      .pause(500)
+      .acceptAlert()
       .click('#menu a[href="#home"]')
       .assert.visible("#home")
+
       .end();
   }
 

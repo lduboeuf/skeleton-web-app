@@ -116,6 +116,10 @@
       if (request.status >= 200 && request.status < 400) {
         // Success!
         $page.innerHTML = request.responseText;
+        $script = $page.querySelector('script');
+        if ($script){
+          eval($script.text);
+        }
         show(pageName,param, modal);
       } else {
         // We reached our target server, but it returned an error
