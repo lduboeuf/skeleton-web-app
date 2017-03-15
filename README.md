@@ -24,5 +24,6 @@
 
  ##test
  ```shell
-  grunt test
+  grunt test:src #to test in src folder
+  grunt test:prod #to test in dist folder
  ```
