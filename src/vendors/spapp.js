@@ -55,7 +55,7 @@
       }
       if($currentPage) {
 
-        document.dispatchEvent(new CustomEvent('page.hidden',{'currentPage' : currentPageName }));
+        document.dispatchEvent(new CustomEvent('page.hidden',{'detail' : {'currentPage' : currentPageName }}));
         if($currentPage.hasAttribute('[no-ctl-cache]')) $currentPage.innerHTML = null;
       }
     }

@@ -27,9 +27,10 @@ body > section {
   display:none;
 }
 
+/**
 body.about > section#about,
 body.home  > section#home { display:block; }
-
+**/
 /* nav highlightion rules */
 body.about #menu a[href="#about"],
 body.home #menu a[href="#home"] { background-color: #555; }

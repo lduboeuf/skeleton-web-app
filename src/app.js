@@ -51,6 +51,16 @@ start = function(){
   //subscribe to page.shown event
   document.addEventListener('page.shown', updateNavigation);
 
+  //tooggle visibility
+  document.addEventListener('page.shown', function(evt){
+    document.querySelector('#'+ evt.detail.currentPage).style.display = 'block';
+
+  });
+  document.addEventListener('page.hidden', function(evt){
+    document.querySelector('#'+ evt.detail.currentPage).style.display = 'none';
+  });
+
+
   //simulate a hash change at startup
   window.dispatchEvent(new CustomEvent('hashchange'));
 
